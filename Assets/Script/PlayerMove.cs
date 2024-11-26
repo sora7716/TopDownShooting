@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
@@ -10,11 +11,19 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb_;
     private Vector2 moveInput_;
     [SerializeField]private Cursor cursor_;
+
+    [SerializeField]
+    //腕の情報。Unityエディタ上で直接設定する
+    private Arm arm_;
+    //InputSystemのFireが押されているか否か
+    private bool isPushFire_;
+
     // Start is called before the first frame update
     void Start()
     {
         //リジットボディを受け取る
         rb_ = GetComponent<Rigidbody>();
+        isPushFire_ = false;
     }
 
     // Update is called once per frame
@@ -22,6 +31,8 @@ public class PlayerMove : MonoBehaviour
     {
         //もしCursorのレイがヒットしていなければ早期リターン
         if (!cursor_.GetIsHit()) { return; }
+        //銃を持った時のの更新
+        UpdataGunTrigger();
         //レイの衝突判定を取得
         RaycastHit raycastHit = cursor_.GetRaycastHit();
         //pointが衝突の座標
@@ -58,5 +69,57 @@ public class PlayerMove : MonoBehaviour
             transform.position +
             input * moveSpeed_ * Time.deltaTime
             );
+    }
+
+    /// <summary>
+    /// 銃を持った時の更新
+    /// </summary>
+    private void UpdataGunTrigger()
+    {
+        //armが銃を持っていなければ早期リターン
+        if (!arm_.IsGrabGun()) { return; }
+        //Fireを押しているか否かで呼び出す処理を変える
+        if (isPushFire_)
+        {
+            arm_.OnTrigger();
+        }
+        else
+        {
+            arm_.OffTrigger();
+        }
+    }
+
+    /// <summary>
+    /// 銃を拾う
+    /// </summary>
+    /// <param name="item"></param>
+    private void TryGetGun(Collider item)
+    {
+        GunBase gun;
+        //GameBaseコンポーネントを持っていなければ
+        if(!item.TryGetComponent(out gun)) { return; }
+        //銃の親が居たら早期リターン
+        if (!gun.GetIsAlone()) { return; }
+        //銃を取得
+        arm_.Grab(gun);
+    }
+
+    //落ちている銃に触れたら取得しようとする
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Item"))
+        {
+            return;
+        }
+        TryGetGun(other);
+    }
+
+    /// <summary>
+    /// 押したかどうかの関数(InputSystemにもともと入っている)
+    /// </summary>
+    /// <param name="inputValue"></param>
+    public void OnFire(InputValue inputValue)
+    {
+        isPushFire_ = inputValue.isPressed;
     }
 }

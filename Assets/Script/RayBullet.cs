@@ -30,17 +30,22 @@ public class RayBullet : MonoBehaviour
         beginPosition_ = beginPosition;
         endPosition_ = endPosition;
         //Vector3‚Ì”z—ñ‚ÅÀ•W‚ğ“n‚·
+        line_.SetPositions(new Vector3[] { beginPosition_,endPosition_});
 
     }
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //ŠÔ‚ğŒv‘ª‚µ‚Ä¶‘¶ŠÔ‚ª‚È‚­‚È‚Á‚½‚çÁ–Å
+        timer_ -= Time.deltaTime;
+        if (timer_ <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
