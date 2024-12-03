@@ -28,7 +28,7 @@ public class Health : MonoBehaviour
         Death();
     }
 
-    private void Death()
+    protected virtual void Death()
     {
         //€–S‚ÉÁ–Å‚·‚é
         Destroy(gameObject);

@@ -19,6 +19,8 @@ public class HandGun : GunBase
         {
             return;
         }
+        //トリガー引きっぱなしなら早期リターン
+        if (fired_) { return; }
         //発射フラグON
         fired_ = true;
         //タイマーリセット
@@ -40,11 +42,11 @@ public class HandGun : GunBase
         //レイの長さは雑に100mとする
         float rayLength = 100;
         //レイの終点はひとまず最大に
-        Vector3 endPoint = transform.forward * rayLength;
-        if(Physics.Raycast(ray,out raycastHit, rayLength, layerMask))
+        Vector3 endPoint = muzzleTransform_.position + muzzleTransform_.forward * rayLength;
+        if (Physics.Raycast(ray, out raycastHit, rayLength, layerMask))
         {
             //衝突地点にレイを短縮
-            endPoint=raycastHit.point;
+            endPoint = raycastHit.point;
             //対象がHelthコンポーネントを所持しているか確認 
             Health healthComponent;
             bool hasHealth = raycastHit.collider.TryGetComponent(out healthComponent);
@@ -56,7 +58,7 @@ public class HandGun : GunBase
         }
         //銃弾を生成・RayBulletコンポーネントの取得
         GameObject bulletObject = Instantiate(bulletPrefab_.gameObject, muzzleTransform_.position, muzzleTransform_.rotation);
-        RayBullet bullet =bulletObject.GetComponent<RayBullet>();
+        RayBullet bullet = bulletObject.GetComponent<RayBullet>();
         //描画するLineの始点と終点を設定
         bullet.SetPosition(muzzleTransform_.position, endPoint);
 
