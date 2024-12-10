@@ -15,8 +15,6 @@ public class Explosion : MonoBehaviour
 
     Ray ray_;
     RaycastHit raycastHit_;
-    bool isHit_ = false;
-    [SerializeField] private ExplosionHealth target_;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,17 +32,18 @@ public class Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3 directionPos = (target_.transform.position - transform.position).normalized;
-        ray_ = new Ray(transform.position, directionPos);
-        isHit_ = Physics.Raycast(ray_, out raycastHit_, 50);
+        ray_ = new Ray(transform.position, (other.transform.position - transform.position).normalized);
         //接触した相手がHelthコンポーネントを
         //持っていたらダメージを与える
-        if (!isHit_)
+        if (Physics.Raycast(ray_, out raycastHit_))
         {
-            Health health;
-            bool hasHealth = other.TryGetComponent(out health);
-            if (!hasHealth) { return; }
-            health.Damage(damege_);
+            if (!raycastHit_.collider.CompareTag("Wall"))
+            {
+                Health health;
+                bool hasHealth = other.TryGetComponent(out health);
+                if (!hasHealth) { return; }
+                health.Damage(damege_);
+            }
         }
     }
 }
