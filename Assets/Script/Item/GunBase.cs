@@ -9,7 +9,7 @@ public abstract class GunBase : MonoBehaviour
     protected RayBullet bulletPrefab_;
     [SerializeField]
     //銃口のトランスフォーム。発射位置
-    protected Transform muzzleTransform_;
+    protected List<Transform> muzzleTransforms_;
     [SerializeField]
     //連射感覚
     protected float fireRate_ = 0;

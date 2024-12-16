@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DoorLim
+  m_Name: ShotGunGripMaterial
   m_Shader: {fileID: 4800000, guid: 72dbbaf4206e52b47a63112cda23881d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -35,6 +35,6 @@ Material:
     - _LimThreshold: 0.5
     - _SpecularThreshold: 0
     m_Colors:
-    - _Color: {r: 0.9339623, g: 0.9339623, b: 0.36565503, a: 1}
-    - _LimColor: {r: 0.87054837, g: 0.9716981, b: 0.114587024, a: 1}
+    - _Color: {r: 0.93207544, g: 0.5408259, b: 0.1389319, a: 1}
+    - _LimColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

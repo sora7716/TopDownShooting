@@ -55,7 +55,7 @@ public class Arm : MonoBehaviour
         gun.transform.SetParent(transform);
         //©•ª‚ÌˆÊ’u‚Éd‚ËA‰ñ“]‚ğ‰Šú‰»‚·‚é
         gun_.transform.localPosition = Vector3.zero;
-        gun_.transform.localRotation = Quaternion.identity;
+        gun_.transform.localEulerAngles = new Vector3(0, 0, -90);
     }
     //e‚ğ‚Á‚Ä‚¢‚é‚©”Û‚©
     public bool IsGrabGun()

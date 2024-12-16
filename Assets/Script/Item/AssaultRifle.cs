@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandGun : GunBase
+public class AssaultRifle : GunBase
 {
     //発射済みか否か
     bool fired_ = false;
@@ -19,8 +19,6 @@ public class HandGun : GunBase
         {
             return;
         }
-        //トリガー引きっぱなしなら早期リターン
-        if (fired_) { return; }
         //発射フラグON
         fired_ = true;
         //タイマーリセット

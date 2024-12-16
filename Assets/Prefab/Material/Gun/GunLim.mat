@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanLim
+  m_Name: GunLim
   m_Shader: {fileID: 4800000, guid: 72dbbaf4206e52b47a63112cda23881d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -35,6 +35,6 @@ Material:
     - _LimThreshold: 0.5
     - _SpecularThreshold: 0
     m_Colors:
-    - _Color: {r: 0.9716981, g: 0.21542363, b: 0.21542363, a: 1}
-    - _LimColor: {r: 0.9339623, g: 0.45536116, b: 0.19824673, a: 1}
+    - _Color: {r: 0.3584906, g: 0.3534176, b: 0.3534176, a: 1}
+    - _LimColor: {r: 0.8113208, g: 0.7692239, b: 0.7692239, a: 1}
   m_BuildTextureStacks: []
