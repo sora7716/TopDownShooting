@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WallLim
+  m_Name: TargetLim
   m_Shader: {fileID: 4800000, guid: 72dbbaf4206e52b47a63112cda23881d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -35,6 +35,6 @@ Material:
     - _LimThreshold: 0.5
     - _SpecularThreshold: 0
     m_Colors:
-    - _Color: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
-    - _LimColor: {r: 0.5481933, g: 0.7922546, b: 0.9150943, a: 1}
+    - _Color: {r: 0.972549, g: 0.19414653, b: 0.14117645, a: 1}
+    - _LimColor: {r: 0.99215686, g: 0.36874726, b: 0.043137245, a: 1}
   m_BuildTextureStacks: []

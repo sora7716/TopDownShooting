@@ -15,10 +15,14 @@ public class Arm : MonoBehaviour
         //カメラの取得
         Camera.main.TryGetComponent<Cursor>(out cursor_);
         Assert.IsTrue(cursor_!=null,"Cursor取得失敗");
+        //すでに銃を持っているかを確認
+        CheckGrabGun();
     }
 
     private void Update()
     {
+        //持ち主がPlayerでなかったら早期リターン
+        if (!OwnerIsPlayer()) { return; }
         //マウスカーソルが示す地面の座標を取得
         Vector3 cursorPoint = cursor_.GetRaycastHit().point;
         //カメラへの向き
@@ -75,5 +79,36 @@ public class Arm : MonoBehaviour
             return;
         }
         gun_.OffTrigger();
+    }
+
+    private void CheckGrabGun()
+    {
+        //一つの腕に割り当てられている銃は1追加であることを確認
+        Assert.IsTrue
+            (
+            transform.childCount <= 1,
+            "一つの腕に複数の銃が割り当てられています。"
+            );
+        //そもそも自分に子がいるかを確認。居なければ銃は持っていない
+        if (transform.childCount == 0)
+        {
+            return;
+        }
+        GunBase gradGun;
+        //子にGunBaseクラスがアタッチされているか確認
+        bool hasGun = transform.GetChild(0).TryGetComponent(out gradGun);
+        //持っていたら取得処理を行う
+        if (hasGun) { Grab(gradGun); }
+    }
+
+    private bool OwnerIsPlayer()
+    {
+        //自身の親がnullならば持ち主はPlayerではない
+        if (transform.parent == null)
+        {
+            return false;
+        }
+        //親のタグがPlayerだったら持ち主はPlayerである
+        return transform.parent.tag == "Player";
     }
 }

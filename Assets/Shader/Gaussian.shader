@@ -4,7 +4,7 @@
     {
         _MainTex("Texture", 2D) = "white" {}
         _Center("Center Position", Vector) = (0.5, 0.5, 0, 0) // UV座標の中心
-        _Radius("Unblurred Radius", Float) = 0.53// 中央のくっきり範囲
+        _Radius("Unblurred Radius", Float) = 0.4// 中央のくっきり範囲
     }
     SubShader
     {

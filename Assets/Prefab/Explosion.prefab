@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9ca783f07601c419a4c588702424af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damege_: 5
+  beginDamege_: 1
+  endDamege_: 5
   extinctionTime_: 1
-  target_: {fileID: 3032663866985825134, guid: eda79a393672e914d8d5bf177e3fb103, type: 3}
+  minScale_: {x: 0, y: 0, z: 0}
+  maxScale_: {x: 5, y: 5, z: 5}
