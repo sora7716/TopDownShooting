@@ -283,6 +283,7 @@ MonoBehaviour:
   muzzleTransforms_:
   - {fileID: 2521392302783780414}
   fireRate_: 2
+  shotTimer_: 0
   power_: 1
   itemRotateSpeedDeg_: 90
 --- !u!1 &8534907104033264866

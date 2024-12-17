@@ -14,34 +14,49 @@ public class Health : MonoBehaviour
     //自身のコライダー
     protected Collider collider_;
 
+    /// <summary>
+    /// シェイク
+    /// </summary>
+    [SerializeField] protected Shake shake_;
+
     private void Awake()
     {
         currentHealth_ = maxHealth_;
         collider_ = GetComponent<Collider>();
+        shake_ = GetComponent<Shake>();
     }
 
     public void Damage(float point)
     {
         //体力を減らし、現在体力が0となれば死亡
-        currentHealth_-= point;
+        currentHealth_ -= point;
+        shake_.SetIsShake(true);
         if (currentHealth_ > 0) { return; }
         Death();
     }
 
     protected virtual void Death()
     {
-        //死亡時に消滅する
-        Destroy(gameObject);
+        if (gameObject.tag != "Player")
+        {
+            //死亡時に消滅する
+            Destroy(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        shake_.ShakeStart();
     }
 }

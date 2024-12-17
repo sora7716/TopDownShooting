@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMove : MonoBehaviour
@@ -19,25 +21,37 @@ public class PlayerMove : MonoBehaviour
     //InputSystemのFireが押されているか否か
     private bool isPushFire_;
 
-    private bool isHaveShotGun_ = false;
-    private Vector3 velocity_ = Vector3.zero;
-    private Vector3 acceleration_ = Vector3.zero;
+    private Vector3 recoilVelocity_ = Vector3.zero;
+    private Vector3 recoilAcceleration_ = Vector3.zero;
     [SerializeField] private float recoil_ = 10.0f;
+    private ShotGun shotGun_;
 
+    [SerializeField] private FadeControl fadeImage_;
+    Color fadeBeginColor_;
+    Color fadeEndColor_ = Color.white;
+
+    [SerializeField] private string sceneName_;
     // Start is called before the first frame update
     void Start()
     {
         //リジットボディを受け取る
         rb_ = GetComponent<Rigidbody>();
+        fadeBeginColor_ = Vector4.zero;
+        fadeImage_.Initialize(fadeEndColor_);
         isPushFire_ = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        velocity_ += acceleration_ * Time.deltaTime;
-        transform.position += velocity_ * Time.deltaTime;
+        recoilVelocity_ += recoilAcceleration_ * Time.deltaTime;
+        transform.position += recoilVelocity_ * Time.deltaTime;
 
+        fadeImage_.FadeOut(fadeBeginColor_, fadeEndColor_);
+        if (fadeImage_.isFinished())
+        {
+            SceneManager.LoadScene(sceneName_);
+        }
         //もしCursorのレイがヒットしていなければ早期リターン
         if (!cursor_.GetIsHit()) { return; }
         //銃を持った時のの更新
@@ -50,6 +64,14 @@ public class PlayerMove : MonoBehaviour
         lookAt.y = transform.position.y;
         //LookAtメソッドは、引数で指定した座標へ向くメソッドだ
         transform.LookAt(lookAt);
+        //反動を生成
+        if (shotGun_)
+        {
+            if (shotGun_.IsFinishe())
+            {
+                recoilAcceleration_ = -transform.forward * recoil_;
+            }
+        }
     }
 
     public void OnMove(InputValue value)
@@ -116,18 +138,46 @@ public class PlayerMove : MonoBehaviour
     //落ちている銃に触れたら取得しようとする
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Goal"))
+        {
+            fadeImage_.SetIsFadeOut(true);
+        }
         if (!other.CompareTag("Item"))
         {
             return;
         }
         TryGetGun(other);
+
         if (other.gameObject.layer == LayerMask.NameToLayer("ShotGun"))
         {
-            isHaveShotGun_ = true;
-        }
-        else
-        {
-            isHaveShotGun_ = false;
+            // 腕クラスを探す
+            Transform armTransform = transform.Find("Arm");
+            if (armTransform != null)
+            {
+                // 腕クラスの子オブジェクトからショットガンクラスを探す
+                Transform shotGunTransform = armTransform.Find("ShotGun");
+                if (shotGunTransform != null)
+                {
+                    // 既存のショットガンクラスを取得
+                    shotGun_ = shotGunTransform.GetComponent<ShotGun>();
+                    if (shotGun_ != null)
+                    {
+                        Debug.Log("ショットガンを取得しました");
+                    }
+                    else
+                    {
+                        Debug.LogError("ShotGunオブジェクトにShotGunコンポーネントが見つかりません");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Armの子にShotGunオブジェクトが見つかりません");
+                }
+            }
+            else
+            {
+                Debug.LogError("PlayerにArmが見つかりません");
+            }
         }
     }
 
@@ -138,14 +188,11 @@ public class PlayerMove : MonoBehaviour
     public void OnFire(InputValue inputValue)
     {
         isPushFire_ = inputValue.isPressed;
-        if (isHaveShotGun_)
-        {
-            acceleration_ = -transform.forward * recoil_;
-        }
+        //反動を消す
         if (!isPushFire_)
         {
-            acceleration_ = Vector3.zero;
-            velocity_ = Vector3.zero;
+            recoilAcceleration_ = Vector3.zero;
+            recoilVelocity_ = Vector3.zero;
         }
     }
 

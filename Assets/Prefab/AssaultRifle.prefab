@@ -709,8 +709,8 @@ MonoBehaviour:
   bulletPrefab_: {fileID: -5770944120334555205, guid: ad5387601006f7a4b821264543cf4c20, type: 3}
   muzzleTransforms_:
   - {fileID: 5538053458326568261}
-  fireRate_: 30
-  power_: 1
+  fireRate_: 0.5
+  power_: 2
   itemRotateSpeedDeg_: 90
 --- !u!1 &7606350040675393698
 GameObject:

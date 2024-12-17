@@ -52,4 +52,10 @@ public abstract class GunBase : MonoBehaviour
         if (shotTimer_ <= 0) { return; }
         shotTimer_ -= Time.deltaTime;
     }
+
+    //ショットタイマーのゲッター
+    public float GetShotTimer()
+    {
+        return shotTimer_;
+    }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5996453127259033899}
   - component: {fileID: 2862268124775425539}
   - component: {fileID: 2522750924661180059}
+  - component: {fileID: -2536763155555771554}
   m_Layer: 0
   m_Name: ExplosiveDrum
   m_TagString: Item
@@ -121,4 +122,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth_: 3
+  shake_: {fileID: -2536763155555771554}
   explosionPrefab_: {fileID: 8610802434509739342, guid: ecc4774121c42e74abcf3cf2fb8a4202, type: 3}
+--- !u!114 &-2536763155555771554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867464440964575918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b038fdff922450b49996e2ded3ed3cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomRangeX_: {x: -0.1, y: 0.1}
+  randomRangeY_: {x: -0.1, y: 0.1}
+  z_: 0
+  shakeTime_: 0.5

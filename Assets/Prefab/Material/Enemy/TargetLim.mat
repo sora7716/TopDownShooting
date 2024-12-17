@@ -32,7 +32,7 @@ Material:
     - _DiffuseThreshold: 0
     - _Edge: 0.05
     - _LimPower: 2
-    - _LimThreshold: 0.5
+    - _LimThreshold: 0.183
     - _SpecularThreshold: 0
     m_Colors:
     - _Color: {r: 0.972549, g: 0.19414653, b: 0.14117645, a: 1}

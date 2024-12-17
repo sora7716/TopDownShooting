@@ -19,13 +19,13 @@ public class EnemyController : MonoBehaviour
     PlayerMove player_;
 
     //最初の角度
-    [SerializeField]Vector3 beginAngle_ =new Vector3(0.0f,-20.0f,0.0f);
+    [SerializeField] Vector3 beginAngle_ = new Vector3(0.0f, -20.0f, 0.0f);
 
     //最後の角度
-    [SerializeField]Vector3 endAngle_ = new Vector3(0.0f, Mathf.PI * 20.0f,0.0f);
+    [SerializeField] Vector3 endAngle_ = new Vector3(0.0f, Mathf.PI * 20.0f, 0.0f);
 
     //周期
-    [SerializeField]float motion_ = 1.0f;
+    [SerializeField] float motion_ = 1.0f;
     //フレーム数
     float rotationFrame_ = 0.0f;
 

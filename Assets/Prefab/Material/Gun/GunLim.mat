@@ -32,9 +32,9 @@ Material:
     - _DiffuseThreshold: 0
     - _Edge: 0.05
     - _LimPower: 2
-    - _LimThreshold: 0.5
+    - _LimThreshold: 0.161
     - _SpecularThreshold: 0
     m_Colors:
     - _Color: {r: 0.3584906, g: 0.3534176, b: 0.3534176, a: 1}
-    - _LimColor: {r: 0.8113208, g: 0.7692239, b: 0.7692239, a: 1}
+    - _LimColor: {r: 0.20392157, g: 0.70980394, b: 0.9254902, a: 1}
   m_BuildTextureStacks: []

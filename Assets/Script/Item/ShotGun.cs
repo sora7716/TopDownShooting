@@ -8,10 +8,12 @@ public class ShotGun : GunBase
     [SerializeField] private float dispersion_;//分散する度合い
     //発射済みか否か
     bool fired_ = false;
+    bool isFinishe_ = false;
     //トリガーを離したらfalse;
     public override void OffTrigger()
     {
         fired_ = false;
+        isFinishe_ = false;
     }
 
     public override void OnTrigger()
@@ -68,7 +70,23 @@ public class ShotGun : GunBase
                 GameObject bulletObject = Instantiate(bulletPrefab_.gameObject, muzzleTransform.position, Quaternion.identity);
                 RayBullet bullet = bulletObject.GetComponent<RayBullet>();
                 bullet.SetPosition(muzzleTransform.position, endPoint);
+                // isFinishe フラグの管理
+                StartCoroutine(CheckBulletEnd(bullet));
             }
         }
+    }
+    // 弾丸の終了を待機
+    private IEnumerator CheckBulletEnd(RayBullet bullet)
+    {
+        while (bullet != null)
+        {
+            yield return null;
+        }
+        isFinishe_ = true;
+    }
+
+    public bool IsFinishe()
+    {
+        return isFinishe_;
     }
 }
